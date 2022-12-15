@@ -6,5 +6,7 @@ urlpatterns = [
     path('empleados/', empleados, name="empleados"),
     path('socios/', socios, name="socios"),
     path('libros/', libros, name="libros"),
-    #el path del formulario
+    path('librosformulario/', librosformulario, name="librosformulario"),
+    path('busquedalibro/', busquedalibro, name="busquedalibro"),
+    path('buscarlibro/', buscarlibro, name="buscarlibro"),
 ]

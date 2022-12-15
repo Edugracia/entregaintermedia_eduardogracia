@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block titulo %}
-<h1> Libros </h1>
+<h1> Buscar Libros </h1>
 
 {% endblock %} 
 
@@ -11,18 +11,14 @@
 
 <h1>{{ mensaje }}</h1>
 
-<!-- <form action="{% url 'libros' %}" method="POST"> {% csrf_token %}
+<form action="{% url 'buscarlibro' %}" method="GET"> {% csrf_token %}
 
 
-    <table>
+    <input type="text" name="titulo" id="titulo" placeholder="Titulo del libro">
 
-        {{ form.as_table }}
-    
-    </table>
+    <input type="submit" value="Buscar">
 
-    <input type="submit" value="Guardar Libro">
-
-</form> -->
+</form>
 
 {% endblock %}
 

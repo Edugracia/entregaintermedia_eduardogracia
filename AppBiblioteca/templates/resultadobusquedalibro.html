@@ -1,0 +1,27 @@
+{% extends "padre.html" %}
+
+{% load static %}
+
+{% block titulo %}
+<h1> Resultado de busqueda de Libros </h1>
+
+{% endblock %} 
+
+{% block contenido_que_cambia %}
+
+{% if libros %}
+
+<h2>Listado de Libros disponibles</h2>
+{% for libro in libros %}
+
+<h3>{{ libro.titulo }} - {{ libro.autor }} - {{ libro.codigo }}</h3>
+
+{% endfor %}
+
+{% else %}
+
+<h2>No hay libros</h2>
+
+{% endif %}
+
+{% endblock %}
