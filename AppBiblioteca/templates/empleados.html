@@ -7,7 +7,24 @@
 
 {% endblock %} 
 
-{% block contenido_que_cambia %}
-<h1> Contenido Empleados </h1>
+{% block subtitulo %}
 
-{% endblock %} 
+<h3>{{ mensaje }}</h3>
+
+{% endblock %}
+
+{% block contenido_que_cambia %}
+
+<h3> Busqueda de Empleados </h3>
+
+<form action="{% url 'buscarempleado' %}" method="GET"> {% csrf_token %}
+
+
+    <input type="text" name="nombre" id="nombre" placeholder="Nombre de empleado">
+
+    <input type="submit" value="Buscar">
+
+</form>
+
+{% endblock %}
+

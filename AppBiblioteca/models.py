@@ -27,4 +27,4 @@ class Libros(models.Model):
     codigo= models.IntegerField()
 
     def __str__(self):
-        return f"{self.tirulo} - {self.autor} - {str(self.codigo)}"
+        return f"{self.titulo} - {self.autor} - {str(self.codigo)}"
