@@ -7,6 +7,12 @@ class empleadosform(forms.Form):
     email=forms.EmailField(label="Email")
 
 
+class sociosform(forms.Form):
+    nombre= forms.CharField(max_length=50)
+    apellido= forms.CharField(max_length=50)
+    email= forms.EmailField()
+    numero_socio= forms.IntegerField()
+
 
 class librosform(forms.Form):
     titulo= forms.CharField(label="Titulo", max_length=50)

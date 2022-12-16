@@ -1,0 +1,35 @@
+{% extends "padre.html" %}
+
+{% load static %}
+
+{% block titulo %}
+<h1> Formulario Socios </h1>
+
+{% endblock %} 
+
+{% block contenido_que_cambia %}
+
+<h1>{{ mensaje }}</h1>
+
+<form action="{% url 'sociosformulario' %}" method="POST"> {% csrf_token %}
+
+
+    <table>
+
+        {{ form.as_table }}
+    
+    </table>
+
+    <input type="submit" value="Guardar Socio">
+
+</form>
+
+{% endblock %}
+
+<!-- <h1>{{ mensaje }}</h1> -->
+<!-- <form action="{% url 'libros' %}" method="POST"> {% csrf_token %} 
+ <P> Titulo <input type="text" name="titulo"></P>
+ <P> Autor <input type="text" name="autor"></P>
+ <P> Codigo <input type="number" name="codigo"></P>
+ <input type="submit" value="Guardar Libro">
+</form> -->

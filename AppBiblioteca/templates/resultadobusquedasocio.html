@@ -1,0 +1,36 @@
+{% extends "padre.html" %}
+
+{% load static %}
+
+{% block titulo %}
+<h1> Resultado de busqueda de Socios </h1>
+
+{% endblock %} 
+
+{% block contenido_que_cambia %}
+
+{% if socios %}
+
+<h2>Listado de Empleados</h2>
+{% for socio in socios %}
+
+<h3>{{ socio.nombre }} - {{ socio.apellido }} - {{ socio.email }} - {{ socio.numero_socio }}</h3>
+
+{% endfor %}
+
+{% else %}
+
+<h2>No hay socios con ese nombre</h2>
+
+{% endif %}
+
+<form action="{% url 'buscarsocio' %}" method="GET"> {% csrf_token %}
+
+
+    <input type="text" name="nombre" id="nombre" placeholder="Nombre del socio">
+
+    <input type="submit" value="Buscar">
+
+</form>
+
+{% endblock %}

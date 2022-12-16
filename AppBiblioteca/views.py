@@ -98,3 +98,38 @@ def buscarempleado(request):
         return render(request, "resultadobusquedaempleado.html", {"empleados": empleados})
     else:
         return render(request, "empleados.html", {"mensaje": "Ingrese el nombre del Empleado"})
+
+#hasta aca empleados
+
+def sociosformulario(request):
+    if request.method=="POST":
+        formulario= sociosform(request.POST)
+        if formulario.is_valid():
+            informacion=formulario.cleaned_data
+            nombre= informacion["nombre"]
+            apellido= informacion["apellido"]
+            email= informacion["email"]
+            numero_socio= informacion["numero_socio"]
+            socio= Socios(nombre=nombre, apellido=apellido, email=email, numero_socio=numero_socio)
+            socio.save()
+            return render(request, "socios.html", {"mensaje" : "Socio guardado correctamente"})
+
+        else:
+            return render (request, "sociosform.html", {"form": formulario, "mensaje": "Informacion no valida"})
+    
+    else:
+        formulario= sociosform()
+        return render (request, "sociosform.html", {"form": formulario})
+
+
+def busquedasocios(request):
+    return render(request, "socios.html")
+
+def buscarsocio(request):
+    
+    nombre= request.GET["nombre"]
+    if nombre != "":
+        socios= Socios.objects.filter(nombre__icontains=nombre)
+        return render(request, "resultadobusquedasocio.html", {"socios": socios})
+    else:
+        return render(request, "socio.html", {"mensaje": "Ingrese el nombre del Socio"})
