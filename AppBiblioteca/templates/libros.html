@@ -15,6 +15,22 @@
 
 {% block contenido_que_cambia %}
 
+<ul>
+    <h1>Listado de libros</h1>
+
+    {% for libro in libros %}
+    <li>{{ libro.titulo }} - {{ libro.autor }}</li>
+
+    <a class="btn btn-danger" href="{% url 'eliminarlibro'  libro.id  %}">Eliminar </a>
+    <a class="btn btn-success" href="{% url 'editarlibro'  libro.id  %}">Editar</a>
+
+    {% endfor %}
+
+</ul>
+
+<a class="btn btn-primary" href="{% url 'librosformulario'  %}">Agregar Libro</a>
+
+
 
 <h3> Busqueda de Titulos </h3>
 

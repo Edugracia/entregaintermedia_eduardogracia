@@ -6,7 +6,6 @@ from AppBiblioteca.forms import *
 # Create your views here.
 def inicio(request):
     return render (request, "inicio.html")
-    #return HttpResponse("Inicio")
 
 def empleados(request):
     return render (request, "empleados.html")
@@ -15,23 +14,9 @@ def socios(request):
     return render (request, "socios.html")
 
 def libros(request):
-    return render (request, "libros.html")
+    libros=Libros.objects.all()
+    return render(request, "libros.html", {"libros": libros})
 
-
-
-
-
-"""def librosformulario(request):
-    if request.method=="POST":
-        titulo= request.POST["titulo"]
-        autor= request.POST["autor"]
-        codigo= request.POST["codigo"]
-        libro= Libros(titulo=titulo, autor=autor, codigo=codigo)
-        libro.save()
-        return render (request, "inicio.html", {"mensaje": "Libro guardado correctamente"})
-
-    else:
-        return render (request, "libros.html")"""
 
 def librosformulario(request):
     if request.method=="POST":
@@ -43,7 +28,8 @@ def librosformulario(request):
             codigo= informacion["codigo"]
             libro= Libros(titulo=titulo, autor=autor, codigo=codigo)
             libro.save()
-            return render(request, "libros.html", {"mensaje" : "Libro guardado correctamente"})
+            libros=Libros.objects.all()
+            return render(request, "libros.html", {"libros":libros, "mensaje" : "Libro guardado correctamente"})
 
         else:
             return render (request, "librosform.html", {"form": formulario, "mensaje": "Informacion no valida"})
@@ -64,6 +50,36 @@ def buscarlibro(request):
         return render(request, "resultadobusquedalibro.html", {"libros": libros})
     else:
         return render(request, "libros.html", {"mensaje": "Ingrese el nombre del libro"})
+
+
+"""def leerlibro(request):
+
+    libros=Libros.objects.all()
+    return render(request, "libros.html", {"libros": libros})"""
+
+def eliminarlibro(request, id):
+    libro=Libros.objects.get(id=id)
+    libro.delete()
+    libros=Libros.objects.all()
+    return render(request, "libros.html", {"libros": libros, "mensaje": "Libro eliminado correctamente"})
+
+def editarlibro(request, id):
+    libro=Libros.objects.get(id=id)
+    if request.method=="POST":
+        form= librosform(request.POST)
+        if form.is_valid():
+            informacion=form.cleaned_data
+            libro.titulo= informacion["titulo"]
+            libro.autor= informacion["autor"]
+            libro.codigo= informacion["codigo"]
+            libro.save()
+            libro=Libros.objects.all()
+            return render(request, "libros.html", {"mensaje" : "Libro editado correctamente"})            
+        pass
+    else:
+        formulario= librosform(initial={"titulo":libro.titulo, "autor":libro.autor, "codigo":libro.codigo})
+        return render(request, "editarlibros.html", {"form": formulario, "libro": libro})
+
 
 #hasta aca libros
 
