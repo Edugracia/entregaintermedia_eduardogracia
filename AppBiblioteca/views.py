@@ -73,8 +73,8 @@ def editarlibro(request, id):
             libro.autor= informacion["autor"]
             libro.codigo= informacion["codigo"]
             libro.save()
-            libro=Libros.objects.all()
-            return render(request, "libros.html", {"mensaje" : "Libro editado correctamente"})            
+            libros=Libros.objects.all()
+            return render(request, "libros.html", {"libros": libros, "mensaje" : "Libro editado correctamente"})            
         pass
     else:
         formulario= librosform(initial={"titulo":libro.titulo, "autor":libro.autor, "codigo":libro.codigo})
