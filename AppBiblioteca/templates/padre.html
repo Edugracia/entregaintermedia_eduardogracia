@@ -26,6 +26,15 @@
                 <a class="btn btn-primary" href="{% url 'empleados' %}">Empleados</a>
                 <a class="btn btn-primary" href="{% url 'socios' %}">Socios</a>
                 <a class="btn btn-primary" href="{% url 'libros' %}">Libros</a>
+
+                {% if user.is_authenticated %}
+                <p>Bienvenido: {{ user.username }}</p>
+                <a class="btn btn-danger" href="{% url 'logout' %}">Cerrar sesion</a>
+                {% else %}
+                <a class="btn btn-primary" href="{% url 'registro' %}">Registro</a>
+                <a class="btn btn-primary" href="{% url 'login' %}">Ingresar</a>
+                {% endif %}
+
             </div>
         </nav>
         <!-- Masthead-->
