@@ -19,7 +19,33 @@ def socios(request):
 @login_required
 def libros(request):
     libros=Libros.objects.all()
-    return render(request, "libros.html", {"libros": libros})
+    return render(request, "libros.html", {"libros": libros, "avatar": obteneravatar(request)})
+
+def obteneravatar(request):
+    lista=Avatar.objects.filter(user=request.user)
+    if len(lista)!=0:
+        avatar=lista[0].imagen.url
+    else:
+        avatar="/media/avatars/avatar1.png"
+    return avatar
+
+def agregaravatar(request):
+    if request.method=="POST":
+        form=Avatarform(request.POST, request.FILES)
+        if form.is_valid():
+            avatar=Avatar(user=request.user, imagen=request.FILES["imagen"])
+            avatarviejo=Avatar.objects.filter(user=request.user)
+            if len(avatarviejo)>0:
+                avatarviejo[0].delete()
+            avatar.save()
+            return render(request, "inicio.html", {"mensaje":f"Avatar agregado correctamente"})
+        else:
+            return render(request, "agregaravatar.html", {"form": form, "usuario": request.user, "mensaje":"Error al agregar avatar"})
+
+    else:
+        form=Avatarform()
+        return render(request, "agregaravatar.html", {"form":form, "usuario": request.user})
+
 
 
 def librosformulario(request):
@@ -189,4 +215,27 @@ def login_request(request):
     else:
         form=AuthenticationForm()
         return render(request, "login.html", {"form":form})
+
+@login_required
+def editarperfil(request):
+    usuario=request.user
+    if request.method=="POST":
+        form=UserEditform(request.POST)
+        if form.is_valid():
+            informacion=form.cleaned_data
+            usuario.email=informacion["email"]
+            usuario.password1=informacion["password1"]
+            usuario.password2=informacion["password2"]
+            usuario.first_name=informacion["first_name"]
+            usuario.last_name=informacion["last_name"]
+            usuario.save()
+            return render(request, "inicio.html", {"mensaje":f"Usuario {usuario.username} editado correctamente"})
+        else:
+            return render(request, "editarperfil.html", {"form":form, "nombreusuario":usuario.username})
+    
+    else:
+        form=UserEditform(instance=usuario)
+        return render(request, "editarperfil.html", {"form":form, "nombreusuario":usuario.username})
+
+
 

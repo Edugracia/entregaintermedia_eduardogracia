@@ -29,6 +29,7 @@
 
                 {% if user.is_authenticated %}
                 <p>Bienvenido: {{ user.username }}</p>
+                <img src="{{ avatar }}" alt="">
                 <a class="btn btn-danger" href="{% url 'logout' %}">Cerrar sesion</a>
                 {% else %}
                 <a class="btn btn-primary" href="{% url 'registro' %}">Registro</a>
